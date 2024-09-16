@@ -9,13 +9,13 @@ pipeline{
     stages{
         stage('Build de docker'){
             steps{
-                sh 'docker build . -t docker-k6'
+                sh 'k6 -v'
             }
         }
 
          stage('Run tests'){
             steps{
-                sh 'docker run -rm docker-k6 run script.js'
+                sh 'k6 run script.js'
             }
         }
     }
