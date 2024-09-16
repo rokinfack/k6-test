@@ -21,7 +21,7 @@ pipeline {
                 script {
                     sh '''
                     docker run -d --name influxdb \
-                    -p 8086:8086 \     # <--- Port mapping: hôte:conteneur
+                    -p 8086:8086 \    
                     -v influxdb_data:/var/lib/influxdb2 \
                     ${INFLUXDB_CONTAINER}
                     '''
