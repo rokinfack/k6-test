@@ -5,6 +5,10 @@ pipeline{
             args "--entrypoint=''"
         }
     }
+     parameters {
+        string(name: 'VU_COUNT', defaultValue: '10', description: 'Nombre de VUs (Virtual Users) à simuler')
+        string(name: 'DURATION', defaultValue: '30s', description: 'Durée du test en secondes ou minutes (ex: 30s, 1m)')
+    }
 
     stages{
         stage('Version de k6'){
@@ -15,7 +19,7 @@ pipeline{
 
          stage('Run tests'){
             steps{
-                sh 'k6 run --vus 10 --duration 30s script.js'
+                sh "k6 run --vus ${params.VU_COUNT} --duration ${params.DURATION} script.js"
             }
         }
     }
