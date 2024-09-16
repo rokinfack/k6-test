@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'Dockerfile'
+            args "--entrypoint=''"
+        }
+    }
 
     environment {
         VU_COUNT = '10'
