@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'grafana/k6'
-            args "--entrypoint=''"
-        }
-    }
+    agent any
 
     environment {
         VU_COUNT = '10'
