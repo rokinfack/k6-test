@@ -10,7 +10,7 @@ pipeline {
         INFLUXDB_DB = 'k6db'
         INFLUXDB_USER = 'admin'
         INFLUXDB_PASSWORD = 'admin123'
-        K6_SCRIPT = '/app/test.js'
+        K6_SCRIPT = '/app/script.js'
         VU_COUNT = '10' // Nombre d'utilisateurs virtuels
         DURATION = '30s' // Durée du test
     }
