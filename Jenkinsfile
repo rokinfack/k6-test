@@ -18,12 +18,15 @@ pipeline {
 
     stages {
         stage('Start InfluxDB') {
-              steps {
+            steps {
                 script {
+                    // Lancer InfluxDB pour collecter les métriques
                     sh '''
                     docker run -d --name influxdb \
-                    -p 8086:8086 \     # <--- Port mapping: hôte:conteneur
-                    -v influxdb_data:/var/lib/influxdb2 \
+                    -p 8086:8086 \
+                
+                    
+                    -v influxdb_data:/var/lib/influxdb \
                     ${INFLUXDB_CONTAINER}
                     '''
                 }
