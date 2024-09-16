@@ -20,8 +20,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker run -d --name influxdb \
-                    -p 8086:8086   
+                    docker run -d --name influxdb \ 
                     -v influxdb_data:/var/lib/influxdb2 \
                     ${INFLUXDB_CONTAINER}
                     '''
