@@ -29,7 +29,7 @@ pipeline {
                     // Exécuter k6 et envoyer les résultats à InfluxDB
                     sh """
                     k6 run --vus ${env.VU_COUNT} --duration ${env.DURATION} \
-                    --out influxdb=http://localhost:8086\
+                    --out influxdb=${env.INFLUXDB_URL}/${env.INFLUXDB_DB} \
                     ${env.SCRIPT_PATH}
                     """
                 }
@@ -43,7 +43,6 @@ pipeline {
                     sleep 30
 
                     // Importer un dashboard Grafana via un script
-                    // Remplacer les URL et les paramètres selon votre configuration
                     sh """
                     curl -X POST -H "Content-Type: application/json" \
                     -d '{
