@@ -1,8 +1,9 @@
 pipeline {
-    agent {
+   agent {
         dockerfile {
-            image 'Dockerfile'
-            args "--entrypoint=''"
+            filename 'Dockerfile'
+            // Assurez-vous que les arguments sont appropriés ou ajustez-les selon vos besoins.
+            args '--entrypoint=""'
         }
     }
 
