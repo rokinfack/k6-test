@@ -2,13 +2,14 @@ pipeline {
     agent any
 
     environment {
-        INFLUXDB_CONTAINER = 'influxdb:latest'
+       INFLUXDB_CONTAINER = 'influxdb:2.0'
+        INFLUXDB_ORG = 'my-org'
         GRAFANA_CONTAINER = 'grafana/grafana:latest'
         K6_CONTAINER = 'grafana/k6'
         INFLUXDB_HOST = 'localhost'
         INFLUXDB_PORT = '8086'
         INFLUXDB_USER = 'admin'
-         INFLUXDB_BUCKET = 'k6-bucket'
+        INFLUXDB_BUCKET = 'k6-bucket'
         INFLUXDB_TOKEN = 'your-influxdb-token'
         INFLUXDB_PASSWORD = 'admin123'
         K6_SCRIPT = '/app/script.js'
@@ -18,21 +19,24 @@ pipeline {
 
     stages {
         stage('Start InfluxDB') {
-            steps {
+          steps {
                 script {
                     // Lancer InfluxDB pour collecter les métriques
                     sh '''
                     docker run -d --name influxdb \
                     -p 8086:8086 \
-                
-                    
-                    -v influxdb_data:/var/lib/influxdb \
+                    -v influxdb_data:/var/lib/influxdb2 \
+                    -e DOCKER_INFLUXDB_INIT_MODE=setup \
+                    -e DOCKER_INFLUXDB_INIT_USERNAME=${INFLUXDB_USER} \
+                    -e DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASSWORD} \
+                    -e DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG} \
+                    -e DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET} \
+                    -e DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_TOKEN} \
                     ${INFLUXDB_CONTAINER}
                     '''
                 }
             }
         }
-
         stage('Start Grafana') {
             steps {
                 script {
