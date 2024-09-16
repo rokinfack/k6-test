@@ -7,7 +7,7 @@ pipeline{
     }
 
     stages{
-        stage('Build de docker'){
+        stage('Version de k6'){
             steps{
                 sh 'k6 -v'
             }
