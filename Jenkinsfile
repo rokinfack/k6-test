@@ -29,7 +29,7 @@ pipeline {
                     // Exécuter k6 et envoyer les résultats à InfluxDB
                     sh """
                     k6 run --vus ${env.VU_COUNT} --duration ${env.DURATION} \
-                   
+                    --out influxdb=http://localhost:8086\
                     ${env.SCRIPT_PATH}
                     """
                 }
