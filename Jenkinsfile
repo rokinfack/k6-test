@@ -22,7 +22,6 @@ pipeline {
                     sh '''
                     docker run -d --name influxdb \
                     -p 8086:8086 \
-                    -e INFLUXDB_DB=${INFLUXDB_DB} \
                     -e INFLUXDB_ADMIN_USER=${INFLUXDB_USER} \
                     -e INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD} \
                     -v influxdb_data:/var/lib/influxdb \
