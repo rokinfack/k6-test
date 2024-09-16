@@ -9,7 +9,7 @@ pipeline {
     environment {
         VU_COUNT = '10'
         DURATION = '30s'
-        SCRIPT_PATH = '/app/k6-script.js'
+        SCRIPT_PATH = 'script.js'
         INFLUXDB_URL = 'http://influxdb:8086'
         INFLUXDB_DB = 'k6'
         INFLUXDB_USER = 'admin'
