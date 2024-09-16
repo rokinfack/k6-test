@@ -21,7 +21,7 @@ pipeline {
                 script {
                     sh '''
                     docker run -d --name influxdb \
-                    -p 8086:8086 \    
+                    -p 8086:8086   
                     -v influxdb_data:/var/lib/influxdb2 \
                     ${INFLUXDB_CONTAINER}
                     '''
@@ -34,7 +34,7 @@ pipeline {
                 script {
                     sh '''
                     docker run -d --name grafana \
-                    -p 3000:3000 \     # <--- Port mapping: hôte:conteneur
+                    -p 3000:3000 \ 
                     -e GF_SECURITY_ADMIN_USER=admin \
                     -e GF_SECURITY_ADMIN_PASSWORD=admin123 \
                     -v grafana_data:/var/lib/grafana \
