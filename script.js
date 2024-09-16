@@ -47,7 +47,7 @@ export const options = {
   //   },
   // }
 };
-
+// The function that defines VU logic.
 // The function that defines VU logic.
 //
 // See https://grafana.com/docs/k6/latest/examples/get-started-with-k6/ to learn more
