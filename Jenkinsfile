@@ -8,6 +8,8 @@ pipeline {
         INFLUXDB_HOST = 'localhost'
         INFLUXDB_PORT = '8086'
         INFLUXDB_USER = 'admin'
+         INFLUXDB_BUCKET = 'k6-bucket'
+        INFLUXDB_TOKEN = 'your-influxdb-token'
         INFLUXDB_PASSWORD = 'admin123'
         K6_SCRIPT = '/app/script.js'
         VU_COUNT = '10' // Nombre d'utilisateurs virtuels
@@ -16,15 +18,12 @@ pipeline {
 
     stages {
         stage('Start InfluxDB') {
-            steps {
+              steps {
                 script {
-                    // Lancer InfluxDB pour collecter les métriques
                     sh '''
                     docker run -d --name influxdb \
-                    -p 8086:8086 \
-                    -e INFLUXDB_ADMIN_USER=${INFLUXDB_USER} \
-                    -e INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD} \
-                    -v influxdb_data:/var/lib/influxdb \
+                    -p 8086:8086 \     # <--- Port mapping: hôte:conteneur
+                    -v influxdb_data:/var/lib/influxdb2 \
                     ${INFLUXDB_CONTAINER}
                     '''
                 }
