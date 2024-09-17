@@ -27,4 +27,10 @@ pipeline{
             }
         }
     }
+    post {
+        always {
+            // Archiver les rapports générés
+            archiveArtifacts artifacts: 'result.html', allowEmptyArchive: true
+
+    }
 }
