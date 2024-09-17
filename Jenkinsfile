@@ -11,7 +11,7 @@ pipeline {
         VU_COUNT = '10'
         DURATION = '30s'
         SCRIPT_PATH = 'script.js'
-        INFLUXDB_URL = 'http://localhost:8086'
+        INFLUXDB_URL = 'http://influxdb:8086'
         INFLUXDB_DB = 'k6'
     }
 
