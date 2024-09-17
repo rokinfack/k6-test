@@ -32,6 +32,19 @@ pipeline{
             // Archiver les rapports générés
             archiveArtifacts artifacts: 'result.html', allowEmptyArchive: true
 
+            // Publier le rapport HTML
+            publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: '/',
+                reportFiles: 'result.html',
+                reportName: 'My Reports',
+                reportTitles: 'The Report'
+            ])
+
+            junit "result.html"
+        }
+
     }
-}
 }
