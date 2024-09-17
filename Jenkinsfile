@@ -9,9 +9,8 @@ pipeline{
         string(name: 'VU_COUNT', defaultValue: '10',  description: 'Nombre de VUs (Virtual Users) à simuler')
         string(name: 'MONTEE_STAGE_1', defaultValue: '30s', description: 'Monté en charge')
         string(name: 'MAINTIEN_STAGE_2', defaultValue: '200', description: 'stay at higher 200 users for 30 minutes')
-        string(name: 'MAINTIEN_STAGE_3', defaultValue: '200', description: 'ramp-down to 0 users')
-        string(name: 'MAINTIEN_STAGE_4', defaultValue: '5s', description: 'ramp-down to 0 users')
-         string(name: 'MAINTIEN_STAGE_5', defaultValue: '0', description: 'ramp-down to 0 users')
+        string(name: 'MAINTIEN_STAGE_3', defaultValue: '5s', description: 'ramp-down to 0 users')
+         string(name: 'MAINTIEN_STAGE_4', defaultValue: '0', description: 'ramp-down to 0 users')
         choice(name: 'CHOICE', choices: ['script1.js', 'script.js', 'script.js'], description: 'Choisir le script à executé')
     }
 
@@ -24,7 +23,7 @@ pipeline{
 
          stage('Run tests'){
             steps{
-                sh "k6 run --stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2} --stage ${params.MAINTIEN_STAGE_1}:${params.MAINTIEN_STAGE_2} --stage ${params.MAINTIEN_STAGE_2}:${params.MAINTIEN_STAGE_3} --stage ${params.MAINTIEN_STAGE_4}:${params.MAINTIEN_STAGE_5} --vus ${params.VU_COUNT}  ${params.CHOICE}"
+                sh "k6 run --stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2}  --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4} --vus ${params.VU_COUNT}  ${params.CHOICE}"
             }
         }
     }
