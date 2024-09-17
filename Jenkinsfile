@@ -19,7 +19,7 @@ pipeline{
 
          stage('Run tests'){
             steps{
-                sh "k6 run --stage 2m:200 --stage 2m:200 --stage 30s:0 --vus ${params.VU_COUNT} --duration ${params.DURATION} script.js"
+                sh "k6 run --stage 2m:200 --stage 2m:200 --stage 30s:0 --vus ${params.VU_COUNT}  script.js"
             }
         }
     }
