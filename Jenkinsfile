@@ -1,11 +1,5 @@
 pipeline {
-   agent {
-        dockerfile {
-            filename 'Dockerfile'
-            // Assurez-vous que les arguments sont appropriés ou ajustez-les selon vos besoins.
-            args '--entrypoint=""'
-        }
-    }
+   agent any
 
     environment {
         VU_COUNT = '10'
