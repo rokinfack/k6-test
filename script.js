@@ -7,7 +7,7 @@ export let options = {
   duration: '30s',
   // Configuration de l'output pour InfluxDB
   influxdb: {
-    url: 'http://influxdb:8086/write?db=k6',
+    url: 'http://influxdb:8086',
   }
 };
 
