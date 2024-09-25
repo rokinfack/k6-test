@@ -5,13 +5,13 @@ import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporte
 import { textSummary } from "https://jslib.k6.io/k6-summary/0.0.1/index.js";
 
 // Configurer l'output vers InfluxDB
-export let options = {
-    vus: 10, // Exemple : nombre d'utilisateurs virtuels
-    duration: '30s', // Exemple : durée du test
-    // Configuration d'InfluxDB
-    influxdb: {
-        address: 'http://influxdb:8086/InfluxDB', // Assurez-vous que l'adresse correspond
-    },
+export const options = {
+  influxdb: {
+    url: 'http://influxdb:8086', // URL de ton InfluxDB
+    token: 'RMZ3_Ox6Fh62W5Ayg9181aXLoM8V8pVuYviqpemIz-JEMpoUj253G3UVZdWYlWYIQlxuqtQ7E8E_3l3YD1D-oA==', // Remplace par ton token
+    org: 'InfluxDB', // Remplace par le nom de ton organisation
+    bucket: 'InfluxDB', // Remplace par le nom de ton bucket
+  },
 };
 
 export function handleSummary(data) {
