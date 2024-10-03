@@ -1,11 +1,8 @@
 pipeline{
-     agent {
-        dockerfile {
-            // Spécifiez le chemin de votre Dockerfile
-            filename 'Dockerfile'
-            // Le contexte pour construire l'image est le répertcoire actuel
-            dir '.'
-            args "--entrypoint=''"
+    agent {
+        docker {
+            image 'docker:latest' // Utiliser une image Docker qui prend en charge DinD
+            args '--privileged' // Nécessaire pour Docker-in-Docker
         }
     }
      parameters {
@@ -17,10 +14,14 @@ pipeline{
         choice(name: 'CHOICE', choices: ['script1.js', 'script.js', 'script.js'], description: 'Choisir le script à executé')
     }
 
-    stages{
-        stage('Version de k6'){
-            steps{
-                sh 'k6 -v'
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Construire l'image Docker
+                    def imageName = 'votre-image-k6'
+                    sh "docker build -t ${imageName} ."
+                }
             }
         }
 
