@@ -23,25 +23,21 @@ pipeline{
 
          stage('Run tests') {
             steps {
-                script {
-                    sh 'ls -la'
-                    def influxdbUrl = "http://influxdb:8086/api/v2/write?org=InfluxDB&bucket=InfluxDB&token=xDfwmeGzNGELGGjpcr_zKh5LNgYbWPeN91UVhat9Uj-XThzRbCaUESw_BBF3cimc8YYtvFK3O7Ydbkju8IONLg=="
-                    def stages = "--stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2} --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4}"
-                    def vusCount = "--vus ${params.VU_COUNT}"
+                steps {
+        script {
+            // Construire l'URL d'influxDB
+            def influxdbUrl = "http://influxdb:8086/api/v2/write?org=InfluxDB&bucket=InfluxDB&token=xDfwmeGzNGELGGjpcr_zKh5LNgYbWPeN91UVhat9Uj-XThzRbCaUESw_BBF3cimc8YYtvFK3O7Ydbkju8IONLg=="
+            
+            // Construire les options pour k6
+            def stages = "--stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2} --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4}"
+            def vusCount = "--vus ${params.VU_COUNT}"
 
-                    // Debug info
-                    echo "InfluxDB URL: ${influxdbUrl}"
-                    echo "Stages: ${stages}"
-                    echo "Vus Count: ${vusCount}"
-                    echo "Script Choice: ${params.CHOICE}"
-
-                    // Vérifiez que le script existe
-                    sh "ls -la ${params.CHOICE}"
-
-                    // Exécutez K6
-                    sh "k6 run --out influxdb=${influxdbUrl} ${stages} ${vusCount} ${params.CHOICE}"
-                }
-            }
+            // Exécuter k6 avec les options appropriées
+            sh """
+                k6 run --out influxdb='${influxdbUrl}' ${stages} ${vusCount} '${params.CHOICE}'
+            """
+        }
+    }
         }
     
     }
