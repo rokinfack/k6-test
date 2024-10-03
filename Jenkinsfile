@@ -3,7 +3,7 @@ pipeline{
         dockerfile {
             // Spécifiez le chemin de votre Dockerfile
             filename 'Dockerfile'
-            // Le contexte pour construire l'image est le répertoire actuel
+            // Le contexte pour construire l'image est le répertcoire actuel
             dir '.'
         }
     }
