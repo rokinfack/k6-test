@@ -1,7 +1,7 @@
 pipeline{
     agent {
         docker {
-            image 'grafana/k6:latest'
+            image 'grafana/k6:latest-with-browser'
             args "--entrypoint=''"
         }
     }
