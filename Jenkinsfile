@@ -1,12 +1,10 @@
 pipeline{
     agent {
         docker {
-            image 'grafanak6'
+            image 'grafana/k6'
             args "--entrypoint=''"
         }
     }
-   
-
      parameters {
         string(name: 'VU_COUNT', defaultValue: '10',  description: 'Nombre de VUs (Virtual Users) à simuler')
         string(name: 'MONTEE_STAGE_1', defaultValue: '30s', description: 'Monté en charge')
@@ -25,7 +23,7 @@ pipeline{
 
          stage('Run tests'){
             steps{
-                sh "k6 run  --stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2}  --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4} --vus ${params.VU_COUNT}  ${params.CHOICE}"
+                sh "k6 run --stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2}  --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4} --vus ${params.VU_COUNT}  ${params.CHOICE}"
             }
         }
     }
