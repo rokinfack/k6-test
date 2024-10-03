@@ -2,7 +2,7 @@ pipeline{
    agent {
         docker {
             image 'grafana/k6' // Utiliser l'image Docker de k6
-            org "--entrypoint=''"
+            args '--entrypoint=""'
         }
     }
 
