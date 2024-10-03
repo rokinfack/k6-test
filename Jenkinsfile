@@ -1,10 +1,5 @@
 pipeline{
-    agent {
-        docker {
-            image 'grafanak6'
-            args "--entrypoint=''"
-        }
-    }
+    agent any
 
      parameters {
         string(name: 'VU_COUNT', defaultValue: '10',  description: 'Nombre de VUs (Virtual Users) à simuler')
@@ -16,9 +11,22 @@ pipeline{
     }
 
     stages{
-        stage('Version de k6'){
-            steps{
-                sh 'k6 -v'
+       stage('Install k6') {
+            steps {
+                script {
+                    // Mettre à jour le système et installer k6
+                    sh '''
+                        sudo apt-get update
+                        sudo apt-get install -y k6
+                    '''
+                }
+            }
+        }
+
+        stage('Verify Installation') {
+            steps {
+                // Vérifier l'installation
+                sh 'k6 version'
             }
         }
 
