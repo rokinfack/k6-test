@@ -1,8 +1,17 @@
 pipeline{
     agent {
         docker {
-            image 'docker:latest' // Utiliser une image Docker qui prend en charge DinD
-            args '--privileged' // Nécessaire pour Docker-in-Docker
+            image 'grafanak6'
+            args "--entrypoint=''"
+        }
+    }
+     agent {
+        dockerfile {
+            // Spécifiez le chemin de votre Dockerfile
+            filename 'Dockerfile'
+            // Le contexte pour construire l'image est le répertcoire actuel
+            dir '.'
+            args "--entrypoint=''"
         }
     }
      parameters {
@@ -14,20 +23,16 @@ pipeline{
         choice(name: 'CHOICE', choices: ['script1.js', 'script.js', 'script.js'], description: 'Choisir le script à executé')
     }
 
-    stages {
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    // Construire l'image Docker
-                    def imageName = 'votre-image-k6'
-                    sh "sudo docker build -t ${imageName} ."
-                }
+    stages{
+        stage('Version de k6'){
+            steps{
+                sh 'k6 -v'
             }
         }
 
          stage('Run tests'){
             steps{
-                sh "k6 run --out influxdb=http://influxdb:8086/api/v2/write?org=InfluxDB&bucket=InfluxDB&token=RMZ3_Ox6Fh62W5Ayg9181aXLoM8V8pVuYviqpemIz-JEMpoUj253G3UVZdWYlWYIQlxuqtQ7E8E_3l3YD1D-oA== --stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2}  --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4} --vus ${params.VU_COUNT}  /usr/src/app/${params.CHOICE}"
+                sh "k6 run --out influxdb=http://influxdb:8086/api/v2/write?org=InfluxDB&bucket=InfluxDB&token=RMZ3_Ox6Fh62W5Ayg9181aXLoM8V8pVuYviqpemIz-JEMpoUj253G3UVZdWYlWYIQlxuqtQ7E8E_3l3YD1D-oA== --stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2}  --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4} --vus ${params.VU_COUNT}  ${params.CHOICE}"
             }
         }
     }
