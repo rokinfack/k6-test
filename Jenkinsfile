@@ -24,7 +24,7 @@ pipeline{
          stage('Run tests') {
             steps {
                 script {
-                    def influxdbUrl = "http://influxdb:8086/api/v2/write?org=InfluxDB&bucket=InfluxDB&token=${INFLUXDB_TOKEN}"
+                    def influxdbUrl = "http://influxdb:8086/api/v2/write?org=InfluxDB&bucket=InfluxDB&token=xDfwmeGzNGELGGjpcr_zKh5LNgYbWPeN91UVhat9Uj-XThzRbCaUESw_BBF3cimc8YYtvFK3O7Ydbkju8IONLg=="
                     def stages = "--stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2} --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4}"
                     def vusCount = "--vus ${params.VU_COUNT}"
 
