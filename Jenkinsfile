@@ -23,7 +23,7 @@ pipeline{
 
          stage('Run tests'){
             steps{
-                sh "k6 run --out influxdb=http://influxdb:8086/InfluxDB --stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2}  --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4} --vus ${params.VU_COUNT}  ${params.CHOICE}"
+                sh "k6 run --out influxdb=http://influxdb:8086/api/v2/write?org=InfluxDB&bucket=InfluxDB&token=xDfwmeGzNGELGGjpcr_zKh5LNgYbWPeN91UVhat9Uj-XThzRbCaUESw_BBF3cimc8YYtvFK3O7Ydbkju8IONLg== --stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2}  --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4} --vus ${params.VU_COUNT}  ${params.CHOICE}"
             }
         }
     }
