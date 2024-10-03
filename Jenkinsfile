@@ -5,15 +5,7 @@ pipeline{
             args "--entrypoint=''"
         }
     }
-     agent {
-        dockerfile {
-            // Spécifiez le chemin de votre Dockerfile
-            filename 'Dockerfile'
-            // Le contexte pour construire l'image est le répertcoire actuel
-            dir '.'
-            args "--entrypoint=''"
-        }
-    }
+
      parameters {
         string(name: 'VU_COUNT', defaultValue: '10',  description: 'Nombre de VUs (Virtual Users) à simuler')
         string(name: 'MONTEE_STAGE_1', defaultValue: '30s', description: 'Monté en charge')
