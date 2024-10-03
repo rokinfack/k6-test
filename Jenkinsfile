@@ -21,11 +21,28 @@ pipeline{
             }
         }
 
-         stage('Run tests'){
-            steps{
-                sh "k6 run --out influxdb=http://influxdb:8086/api/v2/write?org=InfluxDB&bucket=InfluxDB&token=RMZ3_Ox6Fh62W5Ayg9181aXLoM8V8pVuYviqpemIz-JEMpoUj253G3UVZdWYlWYIQlxuqtQ7E8E_3l3YD1D-oA== --stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2}  --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4} --vus ${params.VU_COUNT}  ${params.CHOICE}"
+         stage('Run tests') {
+            steps {
+                script {
+                    def influxdbUrl = "http://influxdb:8086/api/v2/write?org=InfluxDB&bucket=InfluxDB&token=${INFLUXDB_TOKEN}"
+                    def stages = "--stage ${params.MONTEE_STAGE_1}:${params.MAINTIEN_STAGE_2} --stage ${params.MAINTIEN_STAGE_3}:${params.MAINTIEN_STAGE_4}"
+                    def vusCount = "--vus ${params.VU_COUNT}"
+
+                    // Debug info
+                    echo "InfluxDB URL: ${influxdbUrl}"
+                    echo "Stages: ${stages}"
+                    echo "Vus Count: ${vusCount}"
+                    echo "Script Choice: ${params.CHOICE}"
+
+                    // Vérifiez que le script existe
+                    sh "ls -la ${params.CHOICE}"
+
+                    // Exécutez K6
+                    sh "k6 run --out influxdb=${influxdbUrl} ${stages} ${vusCount} ${params.CHOICE}"
+                }
             }
         }
+    
     }
     // post {
     //     // always {
