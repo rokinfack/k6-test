@@ -20,7 +20,7 @@ pipeline{
                 script {
                     // Construire l'image Docker
                     def imageName = 'votre-image-k6'
-                    sh "docker build -t ${imageName} ."
+                    sh "sudo docker build -t ${imageName} ."
                 }
             }
         }
