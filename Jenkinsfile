@@ -5,6 +5,7 @@ pipeline{
             filename 'Dockerfile'
             // Le contexte pour construire l'image est le répertcoire actuel
             dir '.'
+            args "--entrypoint=''"
         }
     }
      parameters {
